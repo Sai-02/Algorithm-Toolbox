@@ -1,47 +1,30 @@
+import java.math.*;
 import java.util.*;
-import java.math.*; 
-import java.io.*; 
 
- class Solution {
-    private static BigInteger getFibonacciLastDigitNaive(int n) {
-        if (n== 1){
-           BigInteger num=BigInteger.valueOf(1);
-           return num;
-            // return n
-        }
-        
-                if (n==0){
-           BigInteger num=BigInteger.valueOf(0);
-           return num;
-            // return n
-        }
-        
-                if (n<0){
-           BigInteger num=BigInteger.valueOf(-1);
-           return num;
-            // return n
-        }
-              
+public class Solution {
 
-        BigInteger previous =BigInteger.valueOf(0);
-        BigInteger current  = BigInteger.valueOf(1);
-        BigInteger div=BigInteger.valueOf(10);
+  private static int getFibonacciLastDigitNaive(int n) {
+    if (n <= 1) return n;
 
-        for (int i = 0; i < n - 1; ++i) {
-            BigInteger tmp_previous=BigInteger.valueOf(0);
-            tmp_previous = previous;
-            previous = current;
-            current = (tmp_previous.add(current));
-        }
+    BigInteger previous = BigInteger.valueOf(0);
+    BigInteger current = BigInteger.valueOf(1);
 
-        return current.mod(div);
+    for (int i = 2; i < n + 1; i++) {
+      BigInteger tmp_previous = BigInteger.valueOf(0);
+      tmp_previous = previous;
+      previous = current;
+      current = tmp_previous.add(current);
     }
-    
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        BigInteger c = getFibonacciLastDigitNaive(n);
-        System.out.println(c);
-    }
+
+    BigInteger Ten = BigInteger.valueOf(10);
+    int r = (current.mod(Ten)).intValue();
+    return r;
+  }
+
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    int n = scanner.nextInt();
+    int c = getFibonacciLastDigitNaive(n);
+    System.out.println(c);
+  }
 }
-
