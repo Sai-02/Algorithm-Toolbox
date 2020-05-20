@@ -2,19 +2,28 @@ import java.util.*;
 
 public class Solution {
 
-  //
-  public static long gcd(long a, long b) {
-    if (a == 0) return b;
+  private static long lcm_naive(int a, int b) {
+    long lcm = 1;
+    if (a > b) {
+      int temp = b;
+      b = a;
+      a = temp;
+    }
+    for (long l = 1; l <= (long) a * b; l++) {
+      lcm = a * l;
+      if (lcm % a == 0 && lcm % b == 0) {
+        return lcm;
+      }
+    }
 
-    return gcd(b % a, a);
+    return (long) a * b;
   }
 
   public static void main(String args[]) {
     Scanner scanner = new Scanner(System.in);
-    long a = scanner.nextLong();
-    long b = scanner.nextLong();
-    long gcd = gcd(a, b);
-    long lcm = (a * b) / gcd;
-    System.out.println(lcm);
+    int a = scanner.nextInt();
+    int b = scanner.nextInt();
+
+    System.out.println(lcm_naive(a, b));
   }
 }
