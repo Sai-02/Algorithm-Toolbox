@@ -4,22 +4,27 @@ import java.util.*;
 
 public class Solution {
 
-  private static void largestNumber(String[] a) {
+  private static String largestNumber(String[] a) {
+    int n = a.length;
+    int i, j;
+    for (i = 0; i < n - 1; i++) {
+      for (j = 0; j < n - 1 - i; j++) {
+        int ans1 = Integer.parseInt(a[j] + a[j + 1]);
+        int ans2 = Integer.parseInt(a[j + 1] + a[j]);
+        if (ans1 > ans2) {
+          continue;
+        } else {
+          String temp = a[j];
+          a[j] = a[j + 1];
+          a[j + 1] = temp;
+        }
+      }
+    }
     String result = "";
-    for (int i = 0; i < a.length; i++) {
+    for (i = 0; i < n; i++) {
       result += a[i];
     }
-
-    int n = result.length();
-    int[] arr = new int[n];
-    for (int i = 0; i < n; i++) {
-      char c = result.charAt(i);
-      arr[i] = Integer.parseInt(String.valueOf(c));
-    }
-    Arrays.sort(arr);
-    for (int i = n - 1; i >= 0; i--) {
-      System.out.printf("%d", arr[i]);
-    }
+    return result;
   }
 
   public static void main(String[] args) {
@@ -29,6 +34,6 @@ public class Solution {
     for (int i = 0; i < n; i++) {
       a[i] = scanner.next();
     }
-    largestNumber(a);
+    System.out.println(largestNumber(a));
   }
 }
